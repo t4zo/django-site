@@ -1,0 +1,26 @@
+{% load static %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static "blog/post_include.css" %}" />
+{% endblock %}
+
+<li>
+  <article class="post">
+    <a href="{% url "post" post.slug %}">
+      <img src="{{ post.image.url }}" alt="{{ post.title }}"/>
+      <div class="post__content">
+        <h3>{{ post.title }}</h3>
+        <p>
+          {{ post.excerpt }}
+        </p>
+            {% comment %} {{ post.tags }} {% endcomment %}
+        {% comment %} {% for post_tag in post_tags %} {% endcomment %}
+            {% comment %} {{ post_tag }} {% endcomment %}
+          {% comment %} {% if(tag == 'New') %}
+            {{ tag }}
+          {% endif %} {% endcomment %}
+        {% comment %} {% endfor %} {% endcomment %}
+      </div>
+    </a>
+  </article>
+</li>
