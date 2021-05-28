@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'sass_processor',
+
     'blog'
 ]
 
@@ -152,3 +154,13 @@ MEDIA_ROOT = path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/media/'
 
 SESSION_COOKIE_AGE = 604800
+
+
+# SCSS - Problems with heroku
+# STATICFILES_FINDERS = [
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#     'sass_processor.finders.CssFinder',
+# ]
+
+SASS_PROCESSOR_ROOT = path.join(BASE_DIR, 'static')
