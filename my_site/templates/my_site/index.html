@@ -1,9 +1,12 @@
-{% comment %} {% extends "base.html" %} {% endcomment %}
+{% extends "base.html" %}
+{% load static %}
 
-{% comment %} {% block title %} 
+{% block title %} 
 My Site
-{% endblock %}  {% endcomment %}
+{% endblock %}
 
-{% comment %} {% block content %} {% endcomment %}
-<a href="{% url 'blog' %}" style='margin-top: 80px;'>Acessar Blog</a>
-{% comment %} {% endblock %} {% endcomment %}
+{% block content %}
+<div class="grid place-content-center" style="height: calc(100vh - 80px);">
+  <a href="{% url 'blog' %}" class="text-xl py-3 px-6 text-indigo-800 hover:text-white hover:bg-indigo-800 border-2 border-indigo-800">Open Blog</a>
+</div>
+{% endblock %}

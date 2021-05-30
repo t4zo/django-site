@@ -1,5 +1,5 @@
 #welcome {
-  background: linear-gradient(to right top, #6305dd, #390281);
+  background: #390281;
   padding: 6rem 12%;
 }
 
@@ -31,6 +31,8 @@
 #welcome p {
   color: white;
   font-size: 1.5rem;
+  margin-bottom: 60px;
+  text-decoration: underline;
 }
 
 #latest-posts {
