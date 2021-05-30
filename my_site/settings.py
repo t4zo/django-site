@@ -12,10 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import django_heroku
 from os import path, getenv
-from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = path.dirname(path.dirname(path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = getenv('SECRET_KEY', '7hl4e90mi8m-$giq3w4s$ci24__^_96b7*1!oi*e$vu5-#h&%(')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = getenv('IS_DEVELOPMENT', True)
+DEBUG = getenv('DEBUG', False)
 
 ALLOWED_HOSTS = [
     getenv('APP_HOST'),
@@ -33,11 +32,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost'
 ]
-# ALLOWED_HOSTS = []
-
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -88,7 +84,6 @@ WSGI_APPLICATION = 'my_site.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
@@ -143,11 +138,11 @@ django_heroku.settings(locals())
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_ROOT = path.join(BASE_DIR, 'staticfiles/')
+STATIC_ROOT = path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    path.join(BASE_DIR, 'static/')
+    path.join(BASE_DIR, 'static')
 ]
 
 MEDIA_ROOT = path.join(BASE_DIR, 'uploads')
