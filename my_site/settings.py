@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import django_heroku
-from os import path, getenv
+from os import path, environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = path.dirname(path.dirname(path.abspath(__file__)))
@@ -21,13 +21,15 @@ BASE_DIR = path.dirname(path.dirname(path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = getenv('SECRET_KEY', '7hl4e90mi8m-$giq3w4s$ci24__^_96b7*1!oi*e$vu5-#h&%(')
+SECRET_KEY = environ.get('SECRET_KEY', '7hl4e90mi8m-$giq3w4s$ci24__^_96b7*1!oi*e$vu5-#h&%(')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = getenv('DEBUG', False)
+DEBUG = environ.get('DEBUG', False) == 'True'
+print(SECRET_KEY)
+print(DEBUG)
 
 ALLOWED_HOSTS = [
-    getenv('APP_HOST'),
+    environ.get('APP_HOST'),
     '159.89.244.218',
     '127.0.0.1',
     'localhost'
@@ -56,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'my_site.urls'
 
@@ -134,11 +137,13 @@ USE_L10N = True
 USE_TZ = True
 
 django_heroku.settings(locals())
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_ROOT = path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
@@ -159,3 +164,40 @@ SESSION_COOKIE_AGE = 604800
 # ]
 
 SASS_PROCESSOR_ROOT = path.join(BASE_DIR, 'static')
+
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': ('%(asctime)s [%(process)d] [%(levelname)s] ' +
+                       'pathname=%(pathname)s lineno=%(lineno)s ' +
+                       'funcname=%(funcName)s %(message)s'),
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        }
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'testlogger': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        }
+    }
+}
+
+DEBUG_PROPAGATE_EXCEPTIONS = True
