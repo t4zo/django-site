@@ -82,6 +82,10 @@ TEMPLATES = [
     },
 ]
 
+STATICFILES_DIRS = [
+    path.join(BASE_DIR, 'static')
+]
+
 WSGI_APPLICATION = 'my_site.wsgi.application'
 
 
@@ -143,18 +147,13 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_ROOT = path.join(BASE_DIR, 'staticfiles')
-# STATIC_ROOT = path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    path.join(BASE_DIR, 'static')
-]
 
 MEDIA_ROOT = path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/media/'
 
 SESSION_COOKIE_AGE = 604800
-
+COMPRESS_ENABLED = bool(environ.get('COMPRESS_ENABLED', False))
 
 # SCSS - Problems with heroku
 # STATICFILES_FINDERS = [

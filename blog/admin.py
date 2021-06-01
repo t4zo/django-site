@@ -10,6 +10,7 @@ class PostAdmin(admin.ModelAdmin):
   prepopulated_fields = {'slug': ('title',)}
   list_filter = ('author', 'tags',)
   list_display = ('title', 'author', 'date',)
+  search_fields = ['title', 'author__first_name', 'author__last_name']
 
 admin.site.register(Author)
 admin.site.register(Post, PostAdmin)
